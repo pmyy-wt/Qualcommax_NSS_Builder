@@ -78,7 +78,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh api -H "Accept: application/vnd.github.raw+json" /repos/pmyy-wt/jdcloud_re-cs-03/contents/raw/refs/heads/main/re-cs-03-nss.patch --jq '.content' | base64 --decode > re-cs-03-nss.patch
+          gh api -H "Accept: application/vnd.github.raw+json" /repos/pmyy-wt/jdcloud_re-cs-03/contents/re-cs-03-nss.patch --jq '.content' -F ref=main | base64 --decode > re-cs-03-nss.patch
           git apply --ignore-space-change re-cs-03-nss.patch
 
       - name: Update and install feeds
