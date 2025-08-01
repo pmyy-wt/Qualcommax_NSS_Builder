@@ -77,8 +77,10 @@ jobs:
       - name: Patch for RE-CS-03
         env:
           GH_TOKEN: ${{ github.token }}
+          PAT_TOKEN: ${{ secrets.FETCH }}
         run: |
-          gh api -H "Accept: application/vnd.github.raw+json" /repos/pmyy-wt/jdcloud_re-cs-03/contents/re-cs-03-nss.patch --jq '.content' -F ref=main | base64 --decode > re-cs-03-nss.patch
+          #gh api -H "Accept: application/vnd.github.raw+json" /repos/pmyy-wt/jdcloud_re-cs-03/contents/re-cs-03-nss.patch --jq '.content' -F ref=main | base64 --decode > re-cs-03-nss.patch
+          curl -H "Authorization: token ${PAT_TOKEN}" -OL "https://raw.githubusercontent.com/pmyy-wt/jdcloud_re-cs-03/refs/heads/main/re-cs-03-nss.patch"
           git apply --ignore-space-change re-cs-03-nss.patch
 
       - name: Update and install feeds
